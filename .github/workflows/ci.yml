@@ -35,6 +35,7 @@ jobs:
           go-version: '1.23.0'
 
       - name: Format code
-        run: test -z $(go fmt ./...)
+        run: | 
+          test -z $(go fmt ./...)
           echo $?
 
