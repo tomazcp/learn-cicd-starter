@@ -5,38 +5,38 @@ import (
 	"testing"
 )
 
-const authorization = "Authorization"
+const authorizationHeader = "Authorization"
 
-func TestGetApiKeyNoAuthorizationHeader(t *testing.T) {
+func TestGetAPIKeyNoAuthorizationHeader(t *testing.T) {
 	_, err := GetAPIKey(http.Header{})
 	if err == nil {
-		t.Fatal("expected error")
+		t.Fatal("error expected")
 	}
 }
 
-func TestGetApiKeyEmptyAuthorizationHeader(t *testing.T) {
+func TestGetAPIKeyEmptyAuthorizationHeader(t *testing.T) {
 	_, err := GetAPIKey(http.Header{
-		"Authorization": {""},
+		authorizationHeader: {""},
 	})
 
 	if err == nil {
-		t.Fatal("expected error")
+		t.Fatal("error expected")
 	}
 }
 
 func TestGetAPIKeyBadHeaderValue(t *testing.T) {
 	_, err := GetAPIKey(http.Header{
-		"Authorization": {"bad-value"},
+		authorizationHeader: {"bad-value"},
 	})
 	if err == nil {
 		t.Fatal("expected error")
 	}
 }
 
-func TestGetApiKeyShouldReturnKey(t *testing.T) {
+func TestGetAPIKeyShouldReturnKey(t *testing.T) {
 	expected := "fake-api-key"
 	got, err := GetAPIKey(http.Header{
-		"Authorization": {"ApiKey " + expected},
+		authorizationHeader: {"ApiKey " + expected},
 	})
 	if err != nil {
 		t.Fatal("unexpected error")
